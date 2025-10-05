@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CHÚC EM TRUNG THU VUI VẺ BÊN GIA ĐÌNH VÀ NGƯỜI THÂN NHA</title>
+<style>
+  :root{
+    --bg1:#0b1020; --bg2:#2b1a4a;
+    --moon:#fff6d1; --lamp:#ff7b50;
+    font-family: Inter, system-ui, Arial;
+  }
+  html,body{height:100%;margin:0;}
+  body{
+    background: radial-gradient(circle at 10% 10%, rgba(255,230,180,0.06), transparent 8%),
+                linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+
+  .card{
+    width:min(920px,96vw); max-width:920px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:20px; padding:28px; box-shadow:0 10px 30px rgba(2,2,10,0.6);
+    position:relative; overflow:hidden;
+  }
+
+  /* moon */
+  .moon{
+    position:absolute; right:40px; top:24px;
+    width:120px; height:120px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #fff9d6 0 35%, #f2e5a0 36% 70%, #e8d98a 71%);
+    filter:drop-shadow(0 6px 18px rgba(0,0,0,0.45));
+    transform:translateY(0); animation: moon-bob 6s ease-in-out infinite;
+  }
+  @keyframes moon-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+  h1{margin:8px 0 4px; font-size:28px; letter-spacing:0.2px;}
+  p.lead{margin:0 0 18px; opacity:0.95;}
+
+  /* lanterns */
+  .lanterns{position:relative; height:220px; margin-top:8px; overflow:visible;}
+  .lantern{
+    position:absolute; bottom:10px; width:72px; height:110px; border-radius:12px;
+    background:linear-gradient(180deg,#ff9677,#ff6b6b);
+    display:flex; align-items:center; justify-content:center;
+    transform-origin:center bottom;
+    animation: floatUp 8s linear infinite;
+    box-shadow:0 8px 20px rgba(0,0,0,0.45);
+  }
+  .lantern::after{
+    content:""; position:absolute; width:8px; height:28px; background:rgba(0,0,0,0.12);
+    left:50%; transform:translateX(-50%); bottom:-20px; border-radius:4px;
+  }
+  .lantern .inner{
+    width:64%; height:64%; border-radius:6px; background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  /* different lanes */
+  .lantern.l1{left:8%; animation-duration:9s; animation-delay: -1s;}
+  .lantern.l2{left:34%; animation-duration:11s; animation-delay: -3s; transform-scale:.95}
+  .lantern.l3{left:62%; animation-duration:10s; animation-delay: -2s;}
+  .lantern.l4{left:82%; animation-duration:12s; animation-delay: -4s;}
+
+  @keyframes floatUp{
+    0%{transform:translateY(0) rotate(-4deg) scale(1)}
+    50%{transform:translateY(-110px) rotate(4deg) scale(0.98)}
+    100%{transform:translateY(0) rotate(-4deg) scale(1)}
+  }
+
+  .message{
+    margin-top:18px; padding:14px; border-radius:12px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    display:flex; gap:14px; align-items:center;
+  }
+  .avatar{
+    width:58px; height:58px; border-radius:12px; background:linear-gradient(90deg,#ffd6a5,#ffb4a2);
+    display:flex; align-items:center; justify-content:center; font-weight:800; color:#4a2b1d;
+    box-shadow:inset 0 -6px 12px rgba(0,0,0,0.06);
+  }
+  .text{flex:1;}
+  .text .title{font-weight:700; font-size:18px; margin-bottom:6px;}
+  .text .body{opacity:0.95; line-height:1.45;}
+
+  .btn{
+    margin-left:auto; padding:8px 14px; border-radius:10px; background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.06); cursor:pointer;
+  }
+
+  @media (max-width:520px){
+    .moon{right:12px; width:88px; height:88px;}
+    .lantern{width:56px;height:88px}
+    h1{font-size:20px}
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="moon" aria-hidden="true"></div>
+    <h1>CHÚC EM IU TRUNG THU VUI VẺ 🌕</h1>
+    <p class="lead">Gửi đến <strong id="lover">EM YÊU</strong> — trăng sáng, bánh thơm và cả anh.</p>
+
+    <div class="lanterns" aria-hidden="true">
+      <div class="lantern l1"><div class="inner">Iu</div></div>
+      <div class="lantern l2"><div class="inner">Em</div></div>
+      <div class="lantern l3"><div class="inner">Nhiều</div></div>
+      <div class="lantern l4"><div class="inner">Lắm</div></div>
+    </div>
+
+    <div class="message">
+      <div class="avatar">T</div>
+      <div class="text">
+        <div class="title">Một lời nhỏ từ <strong>YOU</strong></div>
+        <div class="body" id="msg">Chúc em một Trung Thu thật ấm áp, vui vẻ và ngập tràng yêu thương.</div>
+      </div>
+      
+    </div>
+  </div>
+
+<script>
+  // Tùy chỉnh nhanh trong JS
+  const loverName = "Như Quỳnh"; // sửa ở đây
+  const fromName = "Anh"; // sửa ở đây
+  document.getElementById('lover').textContent = loverName;
+  document.querySelector('.title strong').textContent = fromName;
+
+  function copyLove(){
+    const text = `Chúc mừng Trung Thu, ${loverName}! Trăng sáng, bánh thơm và anh luôn ở bên em.`;
+    navigator.clipboard?.writeText(text).then(()=>alert('Đã sao chép lời chúc!'));
+  }
+</script>
+</body>
+</html>
