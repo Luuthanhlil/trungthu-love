@@ -10,7 +10,7 @@
     --moon:#fff6d1; --lamp:#ff7b50;
     font-family: Inter, system-ui, Arial;
   }
-  html,body{height:100%;margin:0;}
+  html,body{height:100%;margin:0;overflow:hidden;}
   body{
     background: radial-gradient(circle at 10% 10%, rgba(255,230,180,0.06), transparent 8%),
                 linear-gradient(180deg,var(--bg1),var(--bg2));
@@ -56,9 +56,8 @@
     width:64%; height:64%; border-radius:6px; background:rgba(255,255,255,0.06);
     display:flex; align-items:center; justify-content:center; font-weight:700;
   }
-  /* different lanes */
   .lantern.l1{left:8%; animation-duration:9s; animation-delay: -1s;}
-  .lantern.l2{left:34%; animation-duration:11s; animation-delay: -3s; transform-scale:.95}
+  .lantern.l2{left:34%; animation-duration:11s; animation-delay: -3s;}
   .lantern.l3{left:62%; animation-duration:10s; animation-delay: -2s;}
   .lantern.l4{left:82%; animation-duration:12s; animation-delay: -4s;}
 
@@ -82,15 +81,28 @@
   .text .title{font-weight:700; font-size:18px; margin-bottom:6px;}
   .text .body{opacity:0.95; line-height:1.45;}
 
-  .btn{
-    margin-left:auto; padding:8px 14px; border-radius:10px; background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.06); cursor:pointer;
-  }
-
   @media (max-width:520px){
     .moon{right:12px; width:88px; height:88px;}
     .lantern{width:56px;height:88px}
     h1{font-size:20px}
+  }
+
+  /* 🌸 petals (hoa rơi) */
+  .petal{
+    position:fixed;
+    top:-10px;
+    width:14px; height:10px;
+    background:rgba(255,182,193,0.8);
+    border-radius:50% 50% 50% 50%;
+    filter:blur(0.4px);
+    opacity:0.8;
+    pointer-events:none;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform:translateY(0) rotate(0deg); opacity:1; }
+    100% { transform:translateY(110vh) rotate(360deg); opacity:0; }
   }
 </style>
 </head>
@@ -108,25 +120,33 @@
     </div>
 
     <div class="message">
-      <div class="avatar">T</div>
+      <div class="avatar">^^</div>
       <div class="text">
         <div class="title">Một lời nhỏ từ <strong>YOU</strong></div>
-        <div class="body" id="msg">Chúc em một Trung Thu thật ấm áp, vui vẻ và ngập tràng yêu thương.</div>
+        <div class="body" id="msg">Chúc em một Trung Thu thật ấm áp, vui vẻ và ngập tràn yêu thương.</div>
       </div>
-      
     </div>
   </div>
 
 <script>
-  // Tùy chỉnh nhanh trong JS
+  // 💌 Tùy chỉnh nhanh trong JS
   const loverName = "Như Quỳnh"; // sửa ở đây
   const fromName = "Anh"; // sửa ở đây
   document.getElementById('lover').textContent = loverName;
   document.querySelector('.title strong').textContent = fromName;
 
-  function copyLove(){
-    const text = `Chúc mừng Trung Thu, ${loverName}! Trăng sáng, bánh thơm và anh luôn ở bên em.`;
-    navigator.clipboard?.writeText(text).then(()=>alert('Đã sao chép lời chúc!'));
+  // 🌸 hiệu ứng hoa rơi
+  const colors = ['#ffb6c1','#ffd1dc','#ffc0cb','#ff99aa','#ffb6c1'];
+  for(let i=0;i<25;i++){
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = Math.random()*100 + 'vw';
+    petal.style.background = colors[Math.floor(Math.random()*colors.length)];
+    petal.style.animationDuration = 6 + Math.random()*5 + 's';
+    petal.style.animationDelay = Math.random()*5 + 's';
+    petal.style.width = 10 + Math.random()*8 + 'px';
+    petal.style.height = 10 + Math.random()*6 + 'px';
+    document.body.appendChild(petal);
   }
 </script>
 </body>
